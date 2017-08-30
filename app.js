@@ -1,4 +1,16 @@
-var app = angular.module("wineApp", []);
+var app = angular.module("wineApp", ["ngRoute"]);
+
+// Configure routing
+app.config(function($routeProvider) {
+    $routeProvider
+        .when("/wines", {
+            templateUrl: "templates/wine-list.html",
+            controller: "wineListCtrl"
+        })
+        .otherwise({
+            redirectTo: "/wines"
+        });
+});
 
 app.controller("wineListCtrl", function($scope, $http) {
     $http
