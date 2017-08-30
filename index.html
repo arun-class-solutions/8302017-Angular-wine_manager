@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="wineApp">
 <head>
 	<title>Wine Manager App</title>
 
@@ -16,42 +16,46 @@
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+
+	<script src="app.js"></script>
 </head>
-<body>
+<body ng-controller="wineListCtrl">
 
 <div class="container">
 	<div class="margin-top-20">
 		<button data-toggle="modal" data-target="#add-wine-modal" class="btn btn-primary">Add New Wine</button>
 	</div>
 	<!--One Wine-->
-	<div class="row margin-top-20 wine-container">
+	<div ng-repeat="wine in wines" class="row margin-top-20 wine-container">
 		<div class="col-sm-3">
-			<img src="http://s3-us-west-2.amazonaws.com/sandboxapi/saint_cosme.jpg" class="img-responsive" />
+			<img src="{{ wine.picture }}" class="img-responsive" />
 		</div>
 		<div class="col-sm-9">
 			<div class="margin-top-20">
-				<span class="bold">Name: </span><span>CHATEAU DE SAINT COSME</span>
+				<span class="bold">Name: </span><span>{{ wine.name }}</span>
 			</div>
 			<div>
-				<span class="bold">Year: </span><span>2009</span>
+				<span class="bold">Year: </span><span>{{ wine.year }}</span>
 			</div>
 			<div>
-				<span class="bold">Grapes: </span><span>Grenache / Syrah</span>
+				<span class="bold">Grapes: </span><span>{{ wine.grapes }}</span>
 			</div>
 			<div>
-				<span class="bold">Country: </span><span>France</span>
+				<span class="bold">Country: </span><span>{{ wine.country }}</span>
 			</div>
 			<div>
-				<span class="bold">Region: </span><span>Southern Rhone</span>
+				<span class="bold">Region: </span><span>{{ wine.region }}</span>
 			</div>
 			<div>
-				<span class="bold">Price: </span><span>13</span>
+				<span class="bold">Price: </span><span>{{ wine.price }}</span>
 			</div>
 			<div>
 				<span class="bold">Description: </span>
 			</div>
 			<div class="margin-top-10">
-				The aromas of fruit and spice give one a hint of the light drinkability of this lovely wine, which makes an excellent complement to fish dishes.
+				{{ wine.description }}
 			</div>
 			<div class="margin-top-20">
 				<a href="#" class="btn btn-default">Edit Wine</a>
