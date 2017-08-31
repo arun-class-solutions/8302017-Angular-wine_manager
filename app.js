@@ -1,4 +1,4 @@
-var app = angular.module("wineApp", ["ngRoute", "ngAnimate"]);
+var app = angular.module("wineApp", ["ngRoute", "ngAnimate", "ngResource"]);
 
 // Configure routing
 app.config(function($routeProvider) {
@@ -16,12 +16,31 @@ app.config(function($routeProvider) {
         });
 });
 
-app.controller("wineListCtrl", function($scope, $http) {
-    $http
-    .get("http://myapi-profstream.herokuapp.com/api/707381/wines")
-    .then(function(wines) {
-        // Assign array of wines to the scope so we can template them out in the UI
-        $scope.wines = wines.data;
+// Set up Wine model using the $resource service
+app.factory("Wine", function($resource) {
+    return $resource("http://myapi-profstream.herokuapp.com/api/707381/wines/:id", {
+        id: "@id"
+    }, {
+        update: {
+            method: "PUT"
+        }
+    });
+});
+
+app.controller("wineListCtrl", function($scope, $http, Wine) {
+    // $http
+    // .get("http://myapi-profstream.herokuapp.com/api/707381/wines")
+    // .then(function(wines) {
+    //     // Assign array of wines to the scope so we can template them out in the UI
+    //     $scope.wines = wines.data;
+    // }, function(err) {
+    //     console.log(err);
+    // });
+
+    // Use the resource module to make a GET request to /wines
+    Wine
+    .query(function(wines) {
+        $scope.wines = wines;
     }, function(err) {
         console.log(err);
     });
