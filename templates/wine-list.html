@@ -2,8 +2,14 @@
 	<div class="margin-top-20">
 		<button data-toggle="modal" data-target="#add-wine-modal" class="btn btn-primary">Add New Wine</button>
 	</div>
+
+	<!--Wine Search Field-->
+	<div class="margin-top-20">
+		<input ng-model="searchQuery" type="text" class="form-control" placeholder="Search Wines" />
+	</div>
+
 	<!--One Wine-->
-	<div ng-repeat="wine in wines" class="row margin-top-20 wine-container">
+	<div ng-repeat="wine in wines | filter:searchQuery" class="row margin-top-20 wine-container">
 		<div class="col-sm-3">
 			<img src="{{ wine.picture }}" class="img-responsive" />
 		</div>
