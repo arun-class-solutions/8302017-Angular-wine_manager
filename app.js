@@ -77,12 +77,20 @@ app.controller("wineListCtrl", function($scope, Wine) {
     }
 });
 
-app.controller("editWineCtrl", function($scope, $http, $routeParams, $location) {
-    $http
-    .get("http://myapi-profstream.herokuapp.com/api/707381/wines/" + $routeParams.id)
-    .then(function(singleWine) {
-        // Attach the one wine coming back from the API to the scope so we can show it in the UI
-        $scope.wine = singleWine.data;
+app.controller("editWineCtrl", function($scope, $routeParams, $location, Wine) {
+    // $http
+    // .get("http://myapi-profstream.herokuapp.com/api/707381/wines/" + $routeParams.id)
+    // .then(function(singleWine) {
+    //     // Attach the one wine coming back from the API to the scope so we can show it in the UI
+    //     $scope.wine = singleWine.data;
+    // }, function(err) {
+    //     console.log(err);
+    // });
+
+    // Use the resource module to make a GET request to /wines/:id
+    Wine
+    .get({ id: $routeParams.id }, function(singleWine) {
+        $scope.wine = singleWine;
     }, function(err) {
         console.log(err);
     });
