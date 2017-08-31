@@ -98,10 +98,18 @@ app.controller("editWineCtrl", function($scope, $routeParams, $location, Wine) {
     $scope.submitEdits = function(event) {
         event.preventDefault();
 
-        $http
-        .put("http://myapi-profstream.herokuapp.com/api/707381/wines/" + $routeParams.id, $scope.wine)
-        .then(function() {
-            // Redirect user back to /wines when PUT request is successful
+        // $http
+        // .put("http://myapi-profstream.herokuapp.com/api/707381/wines/" + $routeParams.id, $scope.wine)
+        // .then(function() {
+        //     // Redirect user back to /wines when PUT request is successful
+        //     $location.path("/wines");
+        // }, function(err) {
+        //     console.log(err);
+        // });
+
+        // Use the resource module to perform a PUT request to /wines/:id
+        Wine
+        .update({ id: $routeParams.id }, $scope.wine, function() {
             $location.path("/wines");
         }, function(err) {
             console.log(err);
