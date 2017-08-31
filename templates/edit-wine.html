@@ -52,7 +52,8 @@
             <textarea ng-model="wine.description" class="form-control"></textarea>
         </div>
         <div class="margin-top-20">
-            <a href="" class="btn btn-default">Cancel</a>
+            <a href="#!/wines" class="btn btn-default">Cancel</a>
+            <button type="button" ng-click="deleteWine(wine.id)" class="btn btn-danger">Delete Wine</button>
             <button type="submit" class="btn btn-success">Submit Edits</button>
         </div>
     </form>

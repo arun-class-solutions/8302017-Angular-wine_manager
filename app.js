@@ -115,4 +115,14 @@ app.controller("editWineCtrl", function($scope, $routeParams, $location, Wine) {
             console.log(err);
         });
     }
+
+    // On click of the delete wine button, perform a DELETE request to /wines/:id via the resource module
+    $scope.deleteWine = function(wineId) {
+        Wine
+        .delete({ id: wineId }, function() {
+            $location.path("/wines");
+        }, function(err) {
+            console.log(err);
+        });
+    }
 });
