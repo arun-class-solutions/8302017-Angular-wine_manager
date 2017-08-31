@@ -44,7 +44,7 @@ app.controller("wineListCtrl", function($scope, $http) {
     }
 });
 
-app.controller("editWineCtrl", function($scope, $http, $routeParams) {
+app.controller("editWineCtrl", function($scope, $http, $routeParams, $location) {
     $http
     .get("http://myapi-profstream.herokuapp.com/api/707381/wines/" + $routeParams.id)
     .then(function(singleWine) {
@@ -53,4 +53,17 @@ app.controller("editWineCtrl", function($scope, $http, $routeParams) {
     }, function(err) {
         console.log(err);
     });
+
+    $scope.submitEdits = function(event) {
+        event.preventDefault();
+
+        $http
+        .put("http://myapi-profstream.herokuapp.com/api/707381/wines/" + $routeParams.id, $scope.wine)
+        .then(function() {
+            // Redirect user back to /wines when PUT request is successful
+            $location.path("/wines");
+        }, function(err) {
+            console.log(err);
+        });
+    }
 });
