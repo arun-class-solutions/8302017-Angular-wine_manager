@@ -7,6 +7,10 @@ app.config(function($routeProvider) {
             templateUrl: "templates/wine-list.html",
             controller: "wineListCtrl"
         })
+        .when("/wines/:id/edit", {
+            templateUrl: "templates/edit-wine.html",
+            controller: "editWineCtrl"
+        })
         .otherwise({
             redirectTo: "/wines"
         });
@@ -38,4 +42,8 @@ app.controller("wineListCtrl", function($scope, $http) {
             console.log(err);
         });
     }
+});
+
+app.controller("editWineCtrl", function($scope, $http) {
+    
 });
