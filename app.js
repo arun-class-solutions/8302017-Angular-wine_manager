@@ -27,7 +27,7 @@ app.factory("Wine", function($resource) {
     });
 });
 
-app.controller("wineListCtrl", function($scope, $http, Wine) {
+app.controller("wineListCtrl", function($scope, Wine) {
     // $http
     // .get("http://myapi-profstream.herokuapp.com/api/707381/wines")
     // .then(function(wines) {
@@ -48,15 +48,29 @@ app.controller("wineListCtrl", function($scope, $http, Wine) {
     $scope.submitWine = function(event) {
         event.preventDefault();
 
-        $http
-        .post("http://myapi-profstream.herokuapp.com/api/707381/wines", $scope.wine)
-        .then(function(newWine) {
-            // Step 1: Take newly-created wine object and add it to the UI
-            // Step 2: Close the modal window
-            // Hint: To close the modal -> $("#add-wine-modal").modal("hide");
-            $scope.wines.push(newWine.data);
+        // $http
+        // .post("http://myapi-profstream.herokuapp.com/api/707381/wines", $scope.wine)
+        // .then(function(newWine) {
+        //     // Step 1: Take newly-created wine object and add it to the UI
+        //     // Step 2: Close the modal window
+        //     // Hint: To close the modal -> $("#add-wine-modal").modal("hide");
+        //     $scope.wines.push(newWine.data);
 
+        //     $("#add-wine-modal").modal("hide");
+        // }, function(err) {
+        //     console.log(err);
+        // });
+
+        // Use the resource module to make a POST request to /wines
+        Wine
+        .save($scope.wine, function(newWine) {
+            $scope.wines.push(newWine);
+
+            // Hide the Bootstrap modal window
             $("#add-wine-modal").modal("hide");
+
+            // Clear the form to make room for another submission
+            $scope.wine = {};
         }, function(err) {
             console.log(err);
         });
