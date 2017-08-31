@@ -1,4 +1,4 @@
-var app = angular.module("wineApp", ["ngRoute"]);
+var app = angular.module("wineApp", ["ngRoute", "ngAnimate"]);
 
 // Configure routing
 app.config(function($routeProvider) {
