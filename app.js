@@ -44,6 +44,13 @@ app.controller("wineListCtrl", function($scope, $http) {
     }
 });
 
-app.controller("editWineCtrl", function($scope, $http) {
-    
+app.controller("editWineCtrl", function($scope, $http, $routeParams) {
+    $http
+    .get("http://myapi-profstream.herokuapp.com/api/707381/wines/" + $routeParams.id)
+    .then(function(singleWine) {
+        // Attach the one wine coming back from the API to the scope so we can show it in the UI
+        $scope.wine = singleWine.data;
+    }, function(err) {
+        console.log(err);
+    });
 });
